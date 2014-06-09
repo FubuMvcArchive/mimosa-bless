@@ -18,8 +18,10 @@ blessFile = (input, output, options, next) ->
       logger.error "blessc: " + e.message
       next()
 
+    logger.debug "finished reading file[[ #{input} ]]"
     settings = {output, options}
 
+    logger.debug "running bless parser on [[ #{input} ]]"
     new bless.Parser(settings).parse data, (err, files, numSelectors) ->
       if (err)
         logger.error "blessc: " + e.message
@@ -35,6 +37,7 @@ blessFile = (input, output, options, next) ->
           logger.success " #{numFiles} CSS files created for #{input}"
         else
           logger.success "No changes made."
+        next()
 
 cleanBlessed = (mimosaConfig, options, next) ->
   #TODO: clean up any generated bless files
@@ -57,11 +60,22 @@ gatherFiles = (filesFromOptions) ->
     .value()
 
 blessAll = (mimosaConfig, options, next) ->
+  #TODO: for some reason this goes really slow in watch mode
+  #when working with a large code base, need to investigate
+  isBuild = mimosaConfig.isBuild
   settings = mimosaConfig.bless.options
-  logger.info "Blessing files"
   files = gatherFiles mimosaConfig.bless.files
 
+  blessOnWatch = mimosaConfig.bless.blessOnWatch
+
   logger.debug "bless files: #{files}"
+  logger.debug "blessOnWatch: #{blessOnWatch}"
+  logger.debug "isBuild: #{isBuild}"
+  unless blessOnWatch or isBuild
+    next()
+    return
+
+  logger.info "Blessing files"
 
   #TODO: support output per filename via object entry if desired
   sources = _.map files, (value, key) ->
@@ -76,4 +90,9 @@ blessAll = (mimosaConfig, options, next) ->
   _.each sources, ({input, output}) ->
     blessFile input, output, settings, () -> finish(input)
 
-module.exports = {blessAll, checkForBless, cleanBlessed}
+blessCommand = (retrieveConfig) ->
+  retrieveConfig false, (config) ->
+    config.isBuild = true
+    blessAll config, {}, (->)
+
+module.exports = {blessAll, checkForBless, cleanBlessed, blessCommand}

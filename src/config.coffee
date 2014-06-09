@@ -13,6 +13,7 @@ exports.defaults = ->
       force: false,
       imports: true
     files: []
+    blessOnWatch: true
 
 exports.placeholder = ->
   """
@@ -25,6 +26,7 @@ exports.placeholder = ->
   #    force: false,
   #    imports: true
   #  files: []
+  #  blessOnWatch: true #turn this off if it goes slow for large code bases during watch mode
   """
 
 exports.validate = (config, validators) ->
