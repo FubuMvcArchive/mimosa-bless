@@ -31,4 +31,4 @@ if its a folder, it will recursively find any files ending in a .css extension w
 [travis-image]: https://travis-ci.org/DarthFubuMVC/mimosa-bless.svg
 
 [coveralls-url]: https://coveralls.io/r/DarthFubuMVC/mimosa-bless
-[coveralls-image]: http://img.shields.io/coveralls/DarthFubuMVC/mimosa-bless.svg
+[coveralls-image]: https://img.shields.io/coveralls/DarthFubuMVC/mimosa-bless.svg
