@@ -1,4 +1,4 @@
-mimosa-bless [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url]
+mimosa-bless [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url]
 ===========
 ## Overview
 
@@ -23,6 +23,9 @@ Add `mimosa-bless` to your list of modules.  That's all!  Mimosa will install th
 
 `files` is an array of strings with each entry being either the name of a folder or an exact file name
 if its a folder, it will recursively find any files ending in a .css extension within that folder
+
+[npm-url]: https://npmjs.org/package/mimosa-bless
+[npm-image]: http://img.shields.io/npm/v/mimosa-bless.svg
 
 [travis-url]: https://travis-ci.org/DarthFubuMVC/mimosa-bless
 [travis-image]: https://travis-ci.org/DarthFubuMVC/mimosa-bless.svg
