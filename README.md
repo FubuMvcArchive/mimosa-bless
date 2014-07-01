@@ -28,9 +28,9 @@ if its a folder, it will recursively find any files ending in a .css extension w
 [npm-image]: http://img.shields.io/npm/v/mimosa-bless.svg
 
 [travis-url]: https://travis-ci.org/DarthFubuMVC/mimosa-bless
-[travis-image]: https://travis-ci.org/DarthFubuMVC/mimosa-bless.svg
+[travis-image]: https://travis-ci.org/DarthFubuMVC/mimosa-bless.svg?branch=master
 
 [coveralls-url]: https://coveralls.io/r/DarthFubuMVC/mimosa-bless
-[coveralls-image]: https://img.shields.io/coveralls/DarthFubuMVC/mimosa-bless.svg
+[coveralls-image]: https://img.shields.io/coveralls/DarthFubuMVC/mimosa-bless.svg?branch=master
 
 [dependencies-image]: https://david-dm.org/DarthFubuMVC/mimosa-bless.png
