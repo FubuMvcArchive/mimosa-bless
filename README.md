@@ -1,4 +1,4 @@
-mimosa-bless [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url]
+mimosa-bless [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url] ![Dependencies][dependencies-image]
 ===========
 ## Overview
 
@@ -32,3 +32,5 @@ if its a folder, it will recursively find any files ending in a .css extension w
 
 [coveralls-url]: https://coveralls.io/r/DarthFubuMVC/mimosa-bless
 [coveralls-image]: https://img.shields.io/coveralls/DarthFubuMVC/mimosa-bless.svg
+
+[dependencies-image]: https://david-dm.org/DarthFubuMVC/mimosa-bless.png
