@@ -4,6 +4,17 @@
   "homepage": "",
   "author": "Bob Pace",
   "description": "runs bless on your css",
+  "contributors": [
+    {
+      "name": "FubuMVC",
+      "email": "fubumvc-devel@googlegroups.com"
+    },
+    {
+      "name": "Matt Smith",
+      "email": "mtscout6@gmail.com",
+      "url": "http://softwarebymatt.com"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "http://github.com/DarthFubuMVC/mimosa-fubumvc"
