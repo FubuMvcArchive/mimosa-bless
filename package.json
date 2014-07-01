@@ -29,13 +29,16 @@
     "bless": "^3.0.3",
     "lodash": "2.4.1",
     "logmimosa": "1.0.3",
-    "wrench": "1.5.8",
-    "mimosa": "~2.2.15"
+    "mimosa": "~2.2.15",
+    "wrench": "1.5.8"
   },
   "devDependencies": {
-    "coffee-script": "latest",
-    "mocha": "~1.1.0",
     "chai": "~1.0.3",
+    "coffee-script": "latest",
+    "coveralls": "^2.10.1",
+    "istanbul": "^0.2.13",
+    "mocha": "~1.1.0",
+    "mocha-lcov-reporter": "0.0.1",
     "rewire": "~1.0.3"
   },
   "license": "MIT",
@@ -45,6 +48,7 @@
   "main": "./lib/index",
   "scripts": {
     "prepublish": "mimosa build",
-    "test": "mocha"
+    "test": "mocha",
+    "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   }
 }
