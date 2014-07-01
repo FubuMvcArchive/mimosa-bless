@@ -29,7 +29,8 @@
     "bless": "^3.0.3",
     "lodash": "2.4.1",
     "logmimosa": "1.0.3",
-    "wrench": "1.5.8"
+    "wrench": "1.5.8",
+    "mimosa": "~2.2.15"
   },
   "devDependencies": {
     "coffee-script": "latest",
