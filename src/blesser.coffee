@@ -1,4 +1,4 @@
-bless = require 'bless'
+{parser} = require 'bless'
 fs = require 'fs'
 path = require 'path'
 logger = require 'logmimosa'
@@ -19,25 +19,21 @@ blessFile = (input, output, options, next) ->
       next()
 
     logger.debug "finished reading file[[ #{input} ]]"
-    settings = {output, options}
 
     logger.debug "running bless parser on [[ #{input} ]]"
-    new bless.Parser(settings).parse data, (err, files, numSelectors) ->
-      if (err)
-        logger.error "blessc: " + e.message
-        next()
-      else
-        numFiles = files.length
-        logger.info "Source CSS file [[ #{input} ]] contained #{numSelectors} selectors"
-        if (numFiles > 1 || input != output)
-          _.each files, (file) ->
-            fd = fs.openSync file.filename, 'w'
-            fs.writeSync fd, file.content, 0, 'utf-8'
-
-          logger.success " #{numFiles} CSS files created for #{input}"
-        else
-          logger.success "No changes made."
-        next()
+    blessData = parser data
+    numFiles = blessData.data.length
+    numSelectors = blessData.numSelectors
+    logger.info "Source CSS file [[ #{input} ]] contained #{numSelectors} selectors"
+    if (numFiles > 1 || input != output)
+      _.each blessData.data, (data, index) ->
+        name = if index == 0 then  input else input.replace '.css', "-blessed#{index}.css"
+        fd = fs.openSync name, 'w'
+        fs.writeSync fd, data, 0, 'utf-8'
+      logger.success "#{numFiles} CSS files created for #{input}"
+    else
+      logger.success "No changes made."
+    next(blessData)
 
 cleanBlessed = (mimosaConfig, options, next) ->
   #TODO: clean up any generated bless files
@@ -95,4 +91,4 @@ blessCommand = (retrieveConfig) ->
     config.isBuild = true
     blessAll config, {}, (->)
 
-module.exports = {blessAll, checkForBless, cleanBlessed, blessCommand}
+module.exports = {blessAll, checkForBless, cleanBlessed, blessCommand, blessFile}

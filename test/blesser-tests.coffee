@@ -13,4 +13,13 @@ describe "gatherFiles", ->
     result = gatherFiles files
     expect(result).to.eql ["test#{path.sep}test.css"]
 
+describe "blessAll", ->
+  blessFile = blesser.__get__ "blessFile"
+
+  it "breaks down the test file into three files", (done) ->
+    files = ['test']
+
+    blessFile "test/test.css", "test/test.css", {}, (blessData) ->
+      expect(blessData.data.length).to.eql 3
+      done()
   #TODO: more test coverage
