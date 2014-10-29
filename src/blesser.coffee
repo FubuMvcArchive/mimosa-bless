@@ -7,6 +7,17 @@ _ = require 'lodash'
 wrench = require 'wrench'
 {printObj, trackCompletion} = require './util'
 
+writeFiles = (blessData, input, output) ->
+  numFiles = blessData.data.length
+  if numFiles > 1 or input isnt output
+    _.each blessData.data, (data, index) ->
+      name = if index == 0 then  input else input.replace '.css', "-blessed#{index}.css"
+      fd = fs.openSync name, 'w'
+      fs.writeSync fd, data, 0, 'utf-8'
+    logger.success "#{numFiles} CSS files created for #{input}"
+  else
+    logger.success "No changes made."
+ 
 blessFile = (input, output, options, next) ->
   unless fs.existsSync input
     return logger.warn "mimosa-bless: bless file [[ #{input} ]] does not exist"
@@ -22,18 +33,9 @@ blessFile = (input, output, options, next) ->
 
     logger.debug "running bless parser on [[ #{input} ]]"
     blessData = parser data
-    numFiles = blessData.data.length
     numSelectors = blessData.numSelectors
     logger.info "Source CSS file [[ #{input} ]] contained #{numSelectors} selectors"
-    if (numFiles > 1 || input != output)
-      _.each blessData.data, (data, index) ->
-        name = if index == 0 then  input else input.replace '.css', "-blessed#{index}.css"
-        fd = fs.openSync name, 'w'
-        fs.writeSync fd, data, 0, 'utf-8'
-      logger.success "#{numFiles} CSS files created for #{input}"
-    else
-      logger.success "No changes made."
-    next(blessData)
+    next blessData
 
 cleanBlessed = (mimosaConfig, options, next) ->
   #TODO: clean up any generated bless files
@@ -84,7 +86,9 @@ blessAll = (mimosaConfig, options, next) ->
   finish = trackCompletion "blessSources", uniqueInputs, next
 
   _.each sources, ({input, output}) ->
-    blessFile input, output, settings, () -> finish(input)
+    blessFile input, output, settings, (blessData) ->
+      writeFiles blessData, input, output unless blessData
+      finish input
 
 blessCommand = (retrieveConfig) ->
   retrieveConfig false, (config) ->
