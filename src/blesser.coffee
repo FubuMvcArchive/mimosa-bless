@@ -27,7 +27,7 @@ blessFile = (input, output, options, next) ->
   fs.readFile input, 'utf-8', (e, data) ->
     if (e)
       logger.error "blessc: " + e.message
-      next()
+      return next()
 
     logger.debug "finished reading file[[ #{input} ]]"
 
@@ -87,7 +87,7 @@ blessAll = (mimosaConfig, options, next) ->
 
   _.each sources, ({input, output}) ->
     blessFile input, output, settings, (blessData) ->
-      writeFiles blessData, input, output unless blessData
+      writeFiles blessData, input, output if blessData?
       finish input
 
 blessCommand = (retrieveConfig) ->
@@ -95,4 +95,4 @@ blessCommand = (retrieveConfig) ->
     config.isBuild = true
     blessAll config, {}, (->)
 
-module.exports = {blessAll, checkForBless, cleanBlessed, blessCommand, blessFile}
+module.exports = {blessAll, checkForBless, cleanBlessed, blessCommand}
