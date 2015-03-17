@@ -8,7 +8,7 @@ registration = (mimosaConfig, register) ->
   register ['add', 'update', 'remove'], 'afterWrite', blesser.checkForBless
   register ['postBuild'], 'init', blesser.blessAll
 
-registerCommand = (program, retrieveConfig) ->
+registerCommand = (program, logger, retrieveConfig) ->
   program
     .command('bless')
     .description('invokes bless compiler using config settings')
