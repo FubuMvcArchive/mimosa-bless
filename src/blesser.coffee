@@ -17,7 +17,7 @@ writeFiles = (blessData, input, output) ->
     logger.success "#{numFiles} CSS files created for #{input}"
   else
     logger.success "No changes made."
- 
+
 blessFile = (input, output, options, next) ->
   unless fs.existsSync input
     return logger.warn "mimosa-bless: bless file [[ #{input} ]] does not exist"
@@ -91,7 +91,7 @@ blessAll = (mimosaConfig, options, next) ->
       finish input
 
 blessCommand = (retrieveConfig) ->
-  retrieveConfig false, (config) ->
+  retrieveConfig { buildFirst: false }, (config) ->
     config.isBuild = true
     blessAll config, {}, (->)
 

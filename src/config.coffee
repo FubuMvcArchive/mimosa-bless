@@ -15,20 +15,6 @@ exports.defaults = ->
     files: []
     blessOnWatch: true
 
-exports.placeholder = ->
-  """
-  \t
-  #bless:
-  #  options:
-  #    cacheBuster: true,
-  #    cleanup: true,
-  #    compress: false,
-  #    force: false,
-  #    imports: true
-  #  files: []
-  #  blessOnWatch: true #turn this off if it goes slow for large code bases during watch mode
-  """
-
 exports.validate = (config, validators) ->
   errors = []
   {bless} = config
